@@ -1,0 +1,121 @@
+*, *::before, *::after {
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+body {
+    background-color: #000000; /* Dark background */
+    color: #FFFFFF; /* Text color */
+    font-family: 'Cinzel', serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.fixed-image {
+    position: fixed; /* Fixed position */
+    top: 0;
+    right: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    z-index: -1; /* Send background to back */
+}
+.fixed-image img {
+    position: relative;
+    right: 0;
+}
+
+.sidebar {
+    width: 200px; /* Adjust width as needed */
+    background-color: rgba(0, 0, 0, 0); /* Semi-transparent dark background */
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0);
+    position: relative; /* Necessary for z-index */
+    z-index: 1; /* Ensure sidebar is above the background */
+    margin-left: 20px;
+}
+
+.icon {
+    margin-bottom: 10px;
+}
+
+.icon img {
+    width: 70px; /* Size of the icons */
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Center the icons */
+}
+
+.content {
+    flex-grow: 1; /* Allow content to take up remaining space */
+    padding: 10px;
+    background-size: cover; /* Cover the entire area */
+    background-position: center; /* Center the image */
+    position: relative; /* Necessary for z-index */
+    z-index: 2; /* Send content to back */
+    margin-left: 200px;
+    transform: scale(0.8); /* Scale down the content */
+    transform-origin: top left; /* Scale from the top left corner */
+}
+
+.header h1 {
+    text-align: center;
+    font-size: 24px; /* Adjust as needed */
+    margin-bottom: 20px;
+    position: relative; /* Make header relative for z-index stacking */
+    z-index: 2; /* Ensure header is above the background */
+}
+
+.image-container {
+    text-align: center;
+}
+
+.image-container img {
+    max-width: 100%; /* Make the image responsive */
+    height: auto;
+}
+
+body {
+    font-size: 14px; /* Adjust the base font size */
+}
+
+.sidebar {
+    font-size: 12px; /* Adjust sidebar font size */
+}
+
+.content {
+    font-size: 14px; /* Adjust content font size */
+}
+
+ul {
+    padding-left: 0; /* Adjust padding as needed */
+    list-style-type: none; /* Remove default list styles */
+}
+
+li {
+    padding-bottom: 5px; /* Adjust padding between list items */
+}
+
+/* Product Card Styles */
+.card {
+    background-color: rgba(30, 30, 30, 0); /* Slightly transparent background */
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px; /* Rounded corners */
+    display: flex; /* Use flexbox for card layout */
+    align-items: center; /* Align items vertically */
+}
+
+.card .icon {
+    margin-right: 10px; /* Space between icon and text */
+}
+
+.card h2 {
+    font-size: 18px; /* Adjust title size */
+    margin: 0; /* Remove default margin */
+}
+
+.card p {
+    margin: 5px 0; /* Space between paragraphs */
+}
+
+

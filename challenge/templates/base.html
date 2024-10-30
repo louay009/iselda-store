@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+
+    <title>{% block title %}Flask Store{% endblock %}</title>
+</head>
+<body>
+    <div class="content">
+        <img src="./../static/images/menu1.png" alt="hello">
+        {% block content %}{% endblock %}
+        <img src="./../static/images/menu2.png" alt="hello">
+    </div>
+    <div class="fixed-image">
+        <img src="./../static/images/bg.png" alt="Fixed Image">
+    </div>
+
+</body>
+</html>
