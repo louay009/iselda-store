@@ -18,10 +18,13 @@ body {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     z-index: -1; /* Send background to back */
+    display: flex; /* Use flexbox for centering */
+    justify-content: end;
 }
 .fixed-image img {
-    position: relative;
-    right: 0;
+    display: block;
+    width: 50%; /* Full width */
+    object-fit: contain;
 }
 
 .sidebar {
@@ -48,15 +51,40 @@ body {
 .content {
     flex-grow: 1; /* Allow content to take up remaining space */
     padding: 10px;
-    background-size: cover; /* Cover the entire area */
-    background-position: center; /* Center the image */
     position: relative; /* Necessary for z-index */
     z-index: 2; /* Send content to back */
     margin-left: 200px;
-    transform: scale(0.8); /* Scale down the content */
-    transform-origin: top left; /* Scale from the top left corner */
+}
+.button {
+    font-family: 'Cinzel', serif; /* Same font as the text */
+    background: linear-gradient(to bottom, #111111, #272727); /* Black to white gradient */
+    color: #FFFFFF; /* White text */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    text-align: center; /* Center text */
+    display: inline-block; /* Inline-block for proper spacing */
+    text-decoration: none; /* Remove underline from links */
 }
 
+.button:hover {
+    opacity: 0.8; /* Slightly transparent on hover */
+}
+.nogch {
+   position: fixed;
+   right: 15%;
+   top: 7rem;
+   width: 100%;
+   text-align: end;
+}
+.nogch2 {
+    position: fixed;
+    right: 17.5%;
+    top: 7rem;
+    width: 100%;
+    text-align: end;
+ }
 .header h1 {
     text-align: center;
     font-size: 24px; /* Adjust as needed */
@@ -98,6 +126,7 @@ li {
 /* Product Card Styles */
 .card {
     background-color: rgba(30, 30, 30, 0); /* Slightly transparent background */
+    width: 40%; /* Full width */
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px; /* Rounded corners */

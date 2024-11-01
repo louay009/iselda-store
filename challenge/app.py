@@ -1,14 +1,17 @@
 from flask import Flask, render_template
 from models import db
 from config import Config
-from flask import Response, request
-import xml.etree.ElementTree as ET
+from flask import Response, request, session
+from lxml import etree as ET
 from models import Product
 from flask_migrate import Migrate
+from io import BytesIO
+
 app = Flask(__name__)
-from lxml import etree
+
 # Load configuration settings from Config class
 app.config.from_object(Config)
+app.secret_key = 'theabyss'
 migrate = Migrate(app, db)
 # Initialize the database with the Flask app
 db.init_app(app)
@@ -46,6 +49,9 @@ def products_xml():
 
 @app.route('/')
 def home():
+
+    if 'bearer' not in session:
+        session['bearer'] = "hollowknight"
     # Dynamically generate the XML
     tree = ET.ElementTree(ET.fromstring(products_xml().data))  # Fetch the XML dynamically
     root = tree.getroot()
@@ -74,33 +80,38 @@ def product_info():
 
 @app.route('/check_stock', methods=['POST'])
 def check_stock():
+    # Check the session token
+    if 'bearer' not in session or session['bearer'] != 'paleking':
+        return "welcome my knight :) but only the paleking is allowed to check the stock", 403
     # Get the XML request data
     xml_data = request.data.decode('utf-8')
-
+    
     try:
-        # Parse the incoming XML data
-        parser = etree.XMLParser(load_dtd=True, resolve_entities=True)
-        root = etree.fromstring(xml_data.encode('utf-8'), parser=parser)
-
-        # Extract the product ID from the XML
+  # Enable XInclude in the parser
+                # Create an XML parser with XInclude support
+        parser = ET.XMLParser(load_dtd=True, resolve_entities=True)
+        
+        # Parse the XML data and load it into an ElementTree
+        tree = ET.parse(BytesIO(xml_data.encode('utf-8')), parser=parser)
+        
+        # Process XInclude elements
+        tree.xinclude()
+        
+        # Get the root element and find the product_id
+        root = tree.getroot()
         product_id = root.find('product_id').text
-
-        # Query the database to find the product by ID
         product = Product.query.get(product_id)
 
         if product:
-            # Return the actual stock value from the database
-            stock_info = f"Stock for Product ID {product_id}: {product.stock} units left."
+            stock_info = f"Stock for Product {product.name} : {product.stock} units left."
         else:
             stock_info = f"Product with ID {product_id} not found."
 
         return stock_info, 200
 
-    except etree.XMLSyntaxError as e:
+    except ET.XMLSyntaxError as e:
         print("Parse Error:", e)
         return "Error parsing XML", 400
-       
-
 
 if __name__ == '__main__':
     app.run(debug=True)

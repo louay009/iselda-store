@@ -3,14 +3,20 @@
 {% block title %}Product Info{% endblock %}
 
 {% block content %}
-    <h2>{{ product.name }}</h2>
-    <p>Price: ${{ product.price }}</p>
-    <p>Description: {{ product.description }}</p>
+    <h1 class="nogch2">Product info</h1>
+    <div class="card">
+        <div class="icon"><img src="static/images/icon{{ product.id }}.png" alt="{{ product.name }}"></div>
+        <div class="product-info"> <!-- Added this div to wrap title and description -->
+            <h2>{{ product.name }}</h2>
+            <p>Price: {{ product.price }} Geo</p>
+            <p>Description: {{ product.description }}</p>
+            <button class="button" id="check-stock-btn" data-product-id="{{ product.id }}">Check Stock</button>
+            <div id="stock-result"></div> <!-- To display the result -->
+        </div>
+    </div>
 
     <!-- Check Stock Button -->
-    <button id="check-stock-btn" data-product-id="{{ product.id }}">Check Stock</button>
 
-    <div id="stock-result"></div> <!-- To display the result -->
 
     <!-- Include the external JS file -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
