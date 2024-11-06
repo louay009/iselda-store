@@ -64,7 +64,7 @@ def home():
 #product_info route
 @app.route('/product_info', methods=['GET'])
 def product_info():
-    product_id = request.args.get('id')  # Get the product ID from the query string
+    product_id = request.args.get('id')
 
     if product_id:
         product = Product.query.filter_by(id=product_id).first()
@@ -80,28 +80,22 @@ def product_info():
 
 @app.route('/check_stock', methods=['POST'])
 def check_stock():
-    # Check the session token
     if 'bearer' not in session or session['bearer'] != 'paleking':
         return "welcome my knight :) but only the paleking is allowed to check the stock", 403
-    # Get the XML request data
-    xml_data = request.data.decode('utf-8')
+    
+    xml_data = request.data
+    print("Received XML data:", xml_data)
     
     try:
-  # Enable XInclude in the parser
-                # Create an XML parser with XInclude support
-        parser = ET.XMLParser(load_dtd=True, resolve_entities=True)
-        
-        # Parse the XML data and load it into an ElementTree
-        tree = ET.parse(BytesIO(xml_data.encode('utf-8')), parser=parser)
-        
-        # Process XInclude elements
+        parser = ET.XMLParser()
+        root = ET.fromstring(xml_data, parser=parser)
+        tree = ET.ElementTree(root)
         tree.xinclude()
-        
-        # Get the root element and find the product_id
-        root = tree.getroot()
-        product_id = root.find('product_id').text
-        product = Product.query.get(product_id)
+        print("XML after XInclude processing:", ET.tostring(root, pretty_print=True).decode())
 
+        product_id = root.findtext('product_id')
+        product = Product.query.get(product_id)
+        
         if product:
             stock_info = f"Stock for Product {product.name} : {product.stock} units left."
         else:

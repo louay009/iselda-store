@@ -3,14 +3,14 @@
 {% block title %}Product Info{% endblock %}
 
 {% block content %}
-    <h1 class="nogch2">Product info</h1>
+    <h1 class="nigga2">Product info</h1>
     <div class="card">
         <div class="icon"><img src="static/images/icon{{ product.id }}.png" alt="{{ product.name }}"></div>
         <div class="product-info"> <!-- Added this div to wrap title and description -->
             <h2>{{ product.name }}</h2>
             <p>Price: {{ product.price }} Geo</p>
             <p>Description: {{ product.description }}</p>
-            <button class="button" id="check-stock-btn" data-product-id="{{ product.id }}">Check Stock</button>
+            <button class="button" id="check-stock-btn" data-product-id="{{ product.id }}">Check what's left in the store</button>
             <div id="stock-result"></div> <!-- To display the result -->
         </div>
     </div>

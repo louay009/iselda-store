@@ -1,0 +1,6 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"  # Maps port 5000 in the container to port 5000 on your host
